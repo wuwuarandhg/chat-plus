@@ -1,0 +1,39 @@
+{
+  "git": {
+    "changelog": "npx auto-changelog --stdout --commit-limit false --unreleased --template https://raw.githubusercontent.com/release-it/release-it/master/templates/changelog-compact.hbs",
+    "commitMessage": "chore: release ${version}",
+    "tagName": "v${version}",
+    "requireCleanWorkingDir": true,
+    "requireUpstream": false
+  },
+  "hooks": {
+    "before:init": ["npm run lint"],
+    "after:bump": "npx auto-changelog -p"
+  },
+  "npm": {
+    "skipChecks": true,
+    "publish": false
+  },
+  "github": {
+    "release": true
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "infile": "CHANGELOG.md",
+      "ignoreRecommendedBump": true,
+      "preset": {
+        "name": "conventionalcommits",
+        "types": [
+          { "type": "feat", "section": "Features" },
+          { "type": "fix", "section": "Bug Fixes" },
+          { "type": "chore", "section": "Chore", "hidden": false },
+          { "type": "docs", "section": "Docs", "hidden": false },
+          { "type": "style", "section": "Style", "hidden": false },
+          { "type": "refactor", "section": "Refactor", "hidden": false },
+          { "type": "perf", "section": "Perf", "hidden": false },
+          { "type": "test", "section": "Test", "hidden": false }
+        ]
+      }
+    }
+  }
+}
